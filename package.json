@@ -19,6 +19,7 @@
     "@trpc/react-query": "^10.40.0",
     "@trpc/server": "^10.40.0",
     "add": "^2.0.6",
+    "bson": "^6.1.0",
     "button": "^1.1.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
