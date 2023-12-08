@@ -10,7 +10,7 @@ export const appRouter = router({
     const user = getUser()
     
     
-    if (!user?.id || !user?.email) throw new TRPCError({ code: 'UNAUTHORIZED' })
+    if (!user?.id || !user?.email) throw new Error('User not found')
 
 
     // check if the user in database
