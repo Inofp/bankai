@@ -20,10 +20,13 @@ export default function Home() {
           Bankai allows you to have conversations with any PDF document. Simply upload your file and start asking questions right away.
         </p>
 
-        <Link className={buttonVariants({
-          size: 'lg',
-          className: 'mt-5'
-        })} href='/dashboard' target="_blank">
+        <Link
+          className={buttonVariants({
+            size: 'lg',
+            className: 'mt-5'
+          })}
+          href='/dashboard'        
+        >
           Get started <ArrowRight className="ml-2 h-5 w-5" />
         </Link>
       </MaxWidthWrapper>

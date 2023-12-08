@@ -11,7 +11,7 @@ const Page = () => {
     const origin = searchParams.get('origin')
 
     trpc.authCallback.useQuery(undefined, {
-        onSuccess: ({success}) => {
+        onSuccess: ({success}) => {  
             if (success) {
                 // user is synced to db
                 router.push(origin ? `/${origin}` : '/dashboard')
@@ -23,7 +23,7 @@ const Page = () => {
             }
         },
         retry: true,
-        retryDelay: 500,
+        retryDelay: 500000,
     })
 
     return (

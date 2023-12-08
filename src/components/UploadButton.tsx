@@ -22,10 +22,12 @@ const UploadDropzone = () => {
 
     const { startUpload } = useUploadThing('pdfUploader')
 
-    const {} = trpc.getFile.useMutation({
+    const { mutate: startPolling } = trpc.getFile.useMutation({
         onSuccess: (file) => {
             router.push(`/dashboard/${file.id}`)
-        }
+        },
+        retry: true,
+        retryDelay: 500,
     })
 
     const startSimulatedProgress = () => {
@@ -74,6 +76,8 @@ const UploadDropzone = () => {
 
         clearInterval(progressInterval)
         setUploadProgress(100)
+
+        startPolling({ key })
     }}>
         {({ getRootProps, getInputProps, acceptedFiles }) => (
             <div {...getRootProps()} className="border h-64 m-4 border-dashed border-gray-300 rounded-lg">
@@ -108,6 +112,8 @@ const UploadDropzone = () => {
                                 <Progress value={uploadProgress} className="h-1 w-full bg-zinc-200" />
                             </div>
                         ) : null}
+
+                        <input type="file" id="dropzone-file" className="hidden" {...getInputProps()} />
                     </label>
                 </div>
             </div>
