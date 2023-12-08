@@ -10,14 +10,23 @@ import { Progress } from "./ui/progress"
 import { resolve } from "path"
 import { useUploadThing } from "@/lib/uploadthing"
 import { useToast } from "./ui/use-toast"
+import { useRouter } from "next/navigation"
+import { trpc } from "@/app/_trpc/client"
 
 const UploadDropzone = () => {
+    const router = useRouter()
 
     const [isUploading, setIsUploading] = useState<boolean>(true)
     const [uploadProgress, setUploadProgress] = useState<number>(0)
-    const {toast} = useToast()
+    const { toast } = useToast()
 
-    const { startUpload } = useUploadThing('imageUploader')
+    const { startUpload } = useUploadThing('pdfUploader')
+
+    const {} = trpc.getFile.useMutation({
+        onSuccess: (file) => {
+            router.push(`/dashboard/${file.id}`)
+        }
+    })
 
     const startSimulatedProgress = () => {
         setUploadProgress(0)
@@ -53,7 +62,15 @@ const UploadDropzone = () => {
 
         const [fileResponse] = res
 
-        const key = fileResponse.key
+        const key = fileResponse?.key
+
+        if (!key) {
+            return toast({
+                title: 'Something went wrong',
+                description: 'Please try again later',
+                variant: 'destructive',
+            })
+        }
 
         clearInterval(progressInterval)
         setUploadProgress(100)

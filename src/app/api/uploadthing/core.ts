@@ -6,7 +6,7 @@ const f = createUploadthing();
 
  
 export const ourFileRouter = {
-  imageUploader: f({ image: { maxFileSize: "4MB" } })
+  pdfUploader: f({ image: { maxFileSize: "128MB" } })
     .middleware(async ({ req }) => {
       const {getUser} = getKindeServerSession()
       const user = getUser()
